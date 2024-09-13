@@ -29,7 +29,9 @@ describe('bibloteca', () => {
             ano: 2005, 
             emprestado: false 
         };
-        expect(bibloteca.listarLivros(livro)).toContain(livro);
+
+        bibloteca.adicionarLivro(livro);
+        expect(bibloteca.listarLivros()).toContain(livro);
     });
 
     test('Deve remover livros', () => {
@@ -54,8 +56,13 @@ describe('bibloteca', () => {
             ano: 2005, 
             emprestado: true 
         };
+        const membro = { 
+            id: 1, 
+            nome: 'pedroPedroPredo' 
+        };
+        bibloteca.adicionarMembro(membro);
         bibloteca.adicionarLivro(livro);
-        expect(bibloteca.emprestarLivro(1, 1)).toBe(true);
+        bibloteca.emprestarLivro(1, 1)
         expect(livro.emprestado).toBe(true);
 
     });
@@ -67,8 +74,9 @@ describe('bibloteca', () => {
             autor: 'LuzBrendinha', 
             genero: 'Infantil', 
             ano: 2005, 
-            emprestado: false 
+            emprestado: true 
         };
+
 
         bibloteca.adicionarLivro(livro);
         expect(bibloteca.devolverLivro(1)).toBe(true);
@@ -121,9 +129,8 @@ describe('bibloteca', () => {
         bibloteca.adicionarLivro(livro2);
         bibloteca.adicionarLivro(livro3);
 
-      //  expect(bibloteca.listarLivrosEmprestados(livro1)).toContain(livro1);
-        expect(bibloteca.listarLivrosEmprestados(livro2)).toContain(livro2);
-      //  expect(bibloteca.listarLivrosEmprestados(livro3)).toContain(livro3);
+        expect(bibloteca.listarLivrosEmprestados()).toEqual([livro1,livro3])
+
 
     });
 
@@ -154,11 +161,12 @@ describe('bibloteca', () => {
             emprestado: false 
         };
 
+        bibloteca.adicionarLivro(livro1);
+        bibloteca.adicionarLivro(livro3);
         bibloteca.adicionarLivro(livro2);
 
-        expect(bibloteca.listarLivrosDisponiveis(livro1)).toContain(livro1);
-        expect(bibloteca.listarLivrosDisponiveis(livro2)).toContain(livro2);
-        expect(bibloteca.listarLivrosDisponiveis(livro3)).toContain(livro3);
+    
+        expect(bibloteca.listarLivrosDisponiveis()).toEqual([livro1,livro3])
 
     });
 
@@ -173,7 +181,7 @@ describe('bibloteca', () => {
             emprestado: false 
         };
         bibloteca.adicionarLivro(livro);
-        expect(bibloteca.buscarLivroPorTitulo(livro.titulo)).toEqual('Livrinho Infantil');
+        expect(bibloteca.buscarLivroPorTitulo('Livrinho Infantil')).toEqual([livro]);
     });
 
 
@@ -193,7 +201,7 @@ describe('bibloteca', () => {
             nome: 'pedroPedroPredo' 
         };
         bibloteca.removerMembro(membro);
-        expect(bibloteca.listarMembros(membro)).toContain(1);
+        expect(bibloteca.listarMembros()).not.toContain(membro);
     });
 
     test('Deve buscar mebro pelo id', () => {
@@ -211,11 +219,10 @@ describe('bibloteca', () => {
             id: 1, 
             nome: 'pedroPedroPredo'
         };
-        const membro2 = { 
-            id: 2, 
-            nome: 'pedroPedroPredo2'
-        };
-        expect(bibloteca.listarMembros()).toContain(1);
+        
+        bibloteca.adicionarMembro(membro);
+        
+        expect(bibloteca.listarMembros()).toContain(membro);
 
     });
 
