@@ -156,9 +156,9 @@ describe('bibloteca', () => {
 
         bibloteca.adicionarLivro(livro2);
 
-        //expect(bibloteca.listarLivrosDisponiveis(livro1)).toContain(livro1);
+        expect(bibloteca.listarLivrosDisponiveis(livro1)).toContain(livro1);
         expect(bibloteca.listarLivrosDisponiveis(livro2)).toContain(livro2);
-        //expect(bibloteca.listarLivrosDisponiveis(livro3)).toContain(livro3);
+        expect(bibloteca.listarLivrosDisponiveis(livro3)).toContain(livro3);
 
     });
 
